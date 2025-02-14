@@ -69,14 +69,19 @@ def load_pil_images(conversations: List[Dict[str, str]]) -> List[PIL.Image.Image
             continue
 
         for image_data in message["images"]:
-            if image_data.startswith("data:image"):
+            if isinstance(image_data, str) and image_data.startswith("data:image"):
                 # Image data is in base64 format
                 _, image_data = image_data.split(",", 1)
                 image_bytes = base64.b64decode(image_data)
                 pil_img = PIL.Image.open(io.BytesIO(image_bytes))
-            else:
+            elif isinstance(image_data, str):
                 # Image data is a file path
                 pil_img = PIL.Image.open(image_data)
+            elif isinstance(image_data, PIL.Image.Image):
+                # Image data is already a PIL.Image instance
+                pil_img = image_data
+            else:
+                continue
             pil_img = pil_img.convert("RGB")
             pil_images.append(pil_img)
 
