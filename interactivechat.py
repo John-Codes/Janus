@@ -1,5 +1,5 @@
 import os
-import PIL.Image
+from PIL import Image
 import torch
 import numpy as np
 from transformers import AutoModelForCausalLM

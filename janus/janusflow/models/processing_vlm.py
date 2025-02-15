@@ -397,7 +397,7 @@ class VLChatProcessor(ProcessorMixin):
             BatchedVLChatProcessorOutput: A dictionary of the inputs to use for multimodal inference.
         """
 
-        batch_size = len(prepare_list)
+        batch_size = 1
         sft_format = []
         n_images = []
         seq_lens = []
